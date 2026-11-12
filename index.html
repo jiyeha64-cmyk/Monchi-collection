@@ -30,7 +30,7 @@
       line-height: 1.6;
       letter-spacing: -0.03em;   /* 자간 살짝 좁게 (더 좁히려면 -0.05em) */
       background-color: var(--cream);
-      background-image: url("images/bg.jpg");
+      background-image: url("bg.jpg");
       background-repeat: repeat;
       background-size: 368px auto;
       background-attachment: fixed;
@@ -199,9 +199,9 @@
       50% { transform: rotate(calc(var(--r, 0deg) + 5deg)) scaleX(var(--flip, 1)); }
     }
     .sticker.pair   { aspect-ratio: 360 / 327; width: 150px;
-      background-image: url("images/sticker-pair.png"); }
+      background-image: url("sticker-pair.png"); }
     .sticker.ribbon { aspect-ratio: 260 / 512; width: 95px;
-      background-image: url("images/sticker-ribbon.png"); }
+      background-image: url("sticker-ribbon.png"); }
     /* 붙이는 위치: tl=왼쪽위, tr=오른쪽위, bl=왼쪽아래, br=오른쪽아래 */
     .tl { top: -50px;    left: -14px; }
     .tr { top: -50px;    right: -14px; }
@@ -285,7 +285,7 @@
   <!-- 첫 화면 -->
   <header class="box">
     <div class="sticker ribbon tl" style="--r:-14deg"></div>
-    <img class="hero-img" src="images/main.jpg" alt="몬치치 두 마리">
+    <img class="hero-img" src="main.jpg" alt="몬치치 두 마리">
     <h1>몬치도감</h1>
     <p>한 마리씩 데려올 때마다 기록하는 우리 집 몬치들</p>
     <span class="count" id="count">아직 입주한 몬치가 없어요</span>
@@ -484,7 +484,7 @@
     function copyCode(m, n) {
       const code =
 `      <div class="entry">
-        <img src="images/monchi${n}.jpg" alt="${ord(n)} 번째 몬치">
+        <img src="monchi${n}.jpg" alt="${ord(n)} 번째 몬치">
         <div>
           <span class="no">No.${pad(n)}</span>
           <h3>${ord(n)} 번째 몬치</h3>
@@ -493,7 +493,7 @@
           <div class="memo">📝 메모: ${esc(m.memo || '')}</div>
         </div>
       </div>`;
-      const done = () => alert(`복사했어요! index.html의 ＋버튼 카드 바로 위에 붙여넣고,\n사진은 images/monchi${n}.jpg 로 올려 주세요.\n그다음 여기서 이 카드는 삭제하면 돼요.`);
+      const done = () => alert(`복사했어요! index.html의 ＋버튼 카드 바로 위에 붙여넣고,\n사진은 monchi${n}.jpg 이름으로 index.html 옆에 올려 주세요.\n그다음 여기서 이 카드는 삭제하면 돼요.`);
       if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, () => prompt('아래 코드를 복사하세요', code));
       else prompt('아래 코드를 복사하세요', code);
     }
