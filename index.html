@@ -18,15 +18,8 @@
       --text: #4a3326;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      overflow-x: clip;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: clip; }
 
     body {
       font-family: "Jua", sans-serif;
@@ -41,15 +34,11 @@
       background-attachment: fixed;
     }
 
-    .box {
-      -webkit-text-stroke: 0.45px rgba(255, 255, 255, 0.95);
-    }
+    button, input, textarea { font-family: inherit; }
+    button { cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    [hidden] { display: none !important; }
 
-    h1, h2, h3, .no, .tag, .btn, .count, .ribbon {
-      -webkit-text-stroke: 0;
-    }
-
-    /* 상단 메뉴 */
     nav {
       position: sticky;
       top: 0;
@@ -60,35 +49,26 @@
       flex-wrap: wrap;
       gap: 8px 26px;
       padding: 12px;
-      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 3px 0 rgba(0,0,0,.15);
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
+    nav a { color: white; text-decoration: none; }
+    nav a:hover { color: var(--pink); }
 
-    nav a:hover {
-      color: var(--pink);
-    }
-
-    /* 내용 상자 */
     .box {
       position: relative;
       max-width: 920px;
       margin: 40px auto;
       padding: 36px 28px;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255,255,255,.96);
       border: 4px solid var(--red);
       border-radius: 32px;
       box-shadow: 0 8px 0 var(--red);
+      -webkit-text-stroke: .45px rgba(255,255,255,.95);
     }
 
-    @media (max-width: 960px) {
-      .box {
-        margin: 30px 14px;
-      }
+    h1, h2, h3, .no, .tag, .btn, .count, button, input, textarea {
+      -webkit-text-stroke: 0;
     }
 
     h2 {
@@ -104,13 +84,9 @@
       margin-bottom: 28px;
     }
 
-    /* 첫 화면 */
-    header.box {
-      text-align: center;
-      margin-top: 50px;
-    }
+    header.box { text-align: center; margin-top: 50px; }
 
-    header .hero-img {
+    .hero-img {
       width: min(380px, 90%);
       display: block;
       margin: 0 auto 10px;
@@ -118,12 +94,8 @@
     }
 
     @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     header h1 {
@@ -133,9 +105,7 @@
       text-shadow: 3px 3px 0 var(--pink);
     }
 
-    header p {
-      font-size: 1.4rem;
-    }
+    header p { font-size: 1.4rem; }
 
     .count {
       display: inline-block;
@@ -144,14 +114,45 @@
       color: white;
       padding: 6px 22px;
       border-radius: 999px;
-      font-family: "Jua", sans-serif;
     }
 
-    /* 도감 카드 */
-    .dex {
-      display: grid;
-      gap: 26px;
+    .btn {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      text-decoration: none;
+      padding: 8px 22px;
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 4px 0 #7a080b;
+      font-size: 1rem;
+      transition: transform .1s, box-shadow .1s;
     }
+
+    .btn:hover {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #7a080b;
+    }
+
+    .btn.ghost {
+      background: white;
+      color: var(--red);
+      box-shadow: 0 4px 0 var(--pink);
+    }
+
+    .mini {
+      font-size: .85rem;
+      background: white;
+      color: var(--brown);
+      border: 2px solid var(--pink);
+      border-radius: 999px;
+      padding: 3px 12px;
+    }
+
+    .mini:hover { border-color: var(--red); color: var(--red); }
+
+    /* 도감 */
+    .dex { display: grid; gap: 26px; }
 
     .entry {
       display: grid;
@@ -170,12 +171,6 @@
       border-color: var(--red);
     }
 
-    @media (max-width: 640px) {
-      .entry {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .entry img {
       width: 100%;
       height: 260px;
@@ -183,6 +178,21 @@
       background: var(--cream);
       border-radius: 20px;
     }
+
+    .photo-empty {
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      border-radius: 20px;
+      font-size: 4rem;
+      color: var(--pink);
+    }
+
+    .entry.empty { border-style: dashed; opacity: .75; }
+    #addBtn { cursor: pointer; }
+    #addBtn:hover .photo-empty { color: var(--red); }
 
     .no {
       display: inline-block;
@@ -199,48 +209,26 @@
       margin: 6px 0 12px;
     }
 
-    .row {
-      margin: 4px 0;
-    }
-
-    .label {
-      color: var(--red);
-      margin-right: 6px;
-    }
+    .row { margin: 4px 0; overflow-wrap: anywhere; }
+    .label { color: var(--red); margin-right: 6px; }
 
     .memo {
       margin-top: 12px;
       background: var(--cream);
       border-radius: 14px;
       padding: 10px 14px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
-    .entry.empty {
-      border-style: dashed;
-      opacity: .75;
-    }
-
-    .entry .photo-empty {
-      height: 260px;
+    .card-tools {
+      margin-top: 10px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--cream);
-      border-radius: 20px;
-      font-family: "Jua", sans-serif;
-      font-size: 4rem;
-      color: var(--pink);
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    /* 등록 창 */
-    #addBtn {
-      cursor: pointer;
-    }
-
-    #addBtn:hover .photo-empty {
-      color: var(--red);
-    }
-
+    /* 등록·수정 폼 */
     .add-form {
       margin-top: 22px;
       display: grid;
@@ -249,10 +237,6 @@
       border: 3px dashed var(--red);
       border-radius: 24px;
       padding: 22px;
-    }
-
-    .add-form[hidden] {
-      display: none;
     }
 
     .add-form h3 {
@@ -268,72 +252,63 @@
     }
 
     .add-form input,
-    .add-form textarea {
+    .add-form textarea,
+    .wish-name-row input {
       width: 100%;
       min-width: 0;
-      font-family: inherit;
       font-size: 1rem;
       color: var(--text);
-      padding: 8px 12px;
+      padding: 10px 12px;
       border: 2px solid var(--pink);
       border-radius: 12px;
       background: white;
-      -webkit-text-stroke: 0;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid var(--red);
+      outline-offset: 2px;
     }
 
     .form-btns {
       display: flex;
       gap: 10px;
       justify-content: center;
-    }
-
-    button.btn {
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-
-    .btn.ghost {
-      background: white;
-      color: var(--red);
-      box-shadow: 0 4px 0 var(--pink);
-    }
-
-    .card-tools {
-      margin-top: 10px;
-      display: flex;
-      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .mini {
-      font-family: "Jua", sans-serif;
-      font-size: .85rem;
+    .photo-tools {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .photo-preview {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
       background: white;
-      color: var(--brown);
       border: 2px solid var(--pink);
-      border-radius: 999px;
-      padding: 2px 12px;
-      cursor: pointer;
+      border-radius: 16px;
+    }
+
+    .hint, .status {
+      color: #9a7764;
+      font-size: .9rem;
       -webkit-text-stroke: 0;
     }
 
-    .mini:hover {
-      border-color: var(--red);
-      color: var(--red);
-    }
+    .status:empty { display: none; }
 
     /* 스티커 */
     .sticker {
       position: absolute;
       z-index: 3;
-      width: 130px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
       pointer-events: none;
-      filter: drop-shadow(0 5px 6px rgba(0, 0, 0, 0.25));
+      filter: drop-shadow(0 5px 6px rgba(0,0,0,.25));
       transform: rotate(var(--r, 0deg)) scaleX(var(--flip, 1));
       animation: wiggle 3.5s ease-in-out infinite;
     }
@@ -359,97 +334,44 @@
       background-image: url("sticker-ribbon.png");
     }
 
-    .tl {
-      top: -50px;
-      left: -14px;
-    }
-
-    .tr {
-      top: -50px;
-      right: -14px;
-    }
-
-    .bl {
-      bottom: -40px;
-      left: -14px;
-    }
-
-    .br {
-      bottom: -40px;
-      right: -14px;
-    }
-
-    @media (max-width: 640px) {
-      .sticker.pair {
-        width: 100px;
-      }
-
-      .sticker.ribbon {
-        width: 64px;
-      }
-
-      .tl, .tr {
-        top: -36px;
-      }
-
-      .tl {
-        left: -14px;
-      }
-
-      .tr {
-        right: -14px;
-      }
-
-      .bl, .br {
-        bottom: -30px;
-      }
-
-      .bl {
-        left: -12px;
-      }
-
-      .br {
-        right: -12px;
-      }
-    }
+    .tl { top: -50px; left: -14px; }
+    .tr { top: -50px; right: -14px; }
+    .bl { bottom: -40px; left: -14px; }
+    .br { bottom: -40px; right: -14px; }
 
     /* 위시리스트 */
-    .wish {
-      list-style: none;
+    .wish-form {
       display: grid;
       gap: 12px;
+      margin-bottom: 24px;
+      background: var(--cream);
+      padding: 20px;
+      border-radius: 20px;
     }
+
+    .wish-form label { color: var(--red); }
+
+    .wish-name-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .wish-name-row input { flex: 1; border-radius: 999px; }
+    .wish-name-row .btn { flex-shrink: 0; }
+
+    .wish { list-style: none; display: grid; gap: 12px; }
 
     .wish li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
       background: white;
       border: 2px dashed var(--pink);
       border-radius: 18px;
-      padding: 12px 18px;
+      padding: 14px 18px;
     }
 
-    .wish .wish-details {
-      flex: 1;
-      min-width: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .wish .wish-details::before {
-      content: "♡ ";
-      color: var(--red);
-    }
-
-    .wish .wish-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .wish .wish-photo {
+    .wish-photo {
       width: 92px;
       height: 100px;
       object-fit: contain;
@@ -458,149 +380,44 @@
       flex-shrink: 0;
     }
 
+    .wish-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--pink);
+    }
+
+    .wish-details { flex: 1; min-width: 0; }
+    .wish-name { overflow-wrap: anywhere; }
+    .wish-name::before { content: "♡ "; color: var(--red); }
+
+    .wish-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
     .tag {
-      font-family: "Jua", sans-serif;
       font-size: .9rem;
-      padding: 2px 12px;
+      padding: 3px 12px;
+      border: none;
       border-radius: 999px;
       background: var(--pink);
       color: var(--brown);
       white-space: nowrap;
     }
 
-    button.tag {
-      border: none;
-      cursor: pointer;
-    }
-
-    .wish-form {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .wish-form label {
-      display: grid;
-      gap: 6px;
-      color: var(--red);
-    }
-
-    .wish-name-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .wish-form input {
-      flex: 1;
-      min-width: 0;
-      font-family: inherit;
-      font-size: 1rem;
-      color: var(--text);
-      padding: 10px 14px;
-      border: 2px solid var(--pink);
-      border-radius: 999px;
-      background: white;
-      -webkit-text-stroke: 0;
-    }
-
-    .wish-form input:focus,
-    .add-form input:focus,
-    .add-form textarea:focus {
-      outline: none;
-      border-color: var(--red);
-    }
-
-    .wish-photo-tools {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .wish-photo-tools input {
-      width: 100%;
-      flex-basis: 100%;
-      min-width: 0;
-    }
-
-    .wish-photo-preview {
-      width: 130px;
-      height: 130px;
-      object-fit: contain;
-      background: var(--cream);
-      border-radius: 16px;
-    }
-
-    .wish-photo-preview[hidden],
-    .wish-photo-clear[hidden] {
-      display: none;
-    }
-
-    .wish-photo-hint {
-      font-size: .9rem;
-      color: #9a7764;
-    }
-
-    .del {
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #c9a9a0;
-      font-size: 1.2rem;
-      padding: 0 4px;
-    }
-
-    .del:hover {
-      color: var(--red);
-    }
-
-    .wish li.got {
-      opacity: .55;
-    }
-
-    .wish li.got .wish-details::before {
-      content: "♥ ";
-    }
-
-    .wish li.got .name {
-      text-decoration: line-through;
-    }
-
-    .wish li.got .tag {
-      background: var(--red);
-      color: white;
-    }
-
-    button:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
-
-    @media (max-width: 480px) {
-      .wish li {
-        padding: 12px;
-        flex-wrap: wrap;
-      }
-
-      .wish .wish-photo {
-        width: 72px;
-        height: 84px;
-      }
-
-      .wish .wish-details {
-        flex-basis: calc(100% - 90px);
-      }
-
-      .wish-name-row .btn {
-        padding-inline: 16px;
-        flex-shrink: 0;
-      }
-    }
+    .wish li.got { opacity: .6; }
+    .wish li.got .wish-name { text-decoration: line-through; }
+    .wish li.got .wish-name::before { content: "♥ "; }
+    .wish li.got .tag { background: var(--red); color: white; }
 
     /* 구매처 */
     .shops {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 18px;
     }
 
@@ -612,32 +429,8 @@
       text-align: center;
     }
 
-    .shop h3 {
-      color: var(--brown);
-      font-size: 1.4rem;
-    }
-
-    .shop p {
-      font-size: 1.1rem;
-      color: #9a7764;
-      margin: 6px 0 14px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: var(--red);
-      color: white;
-      text-decoration: none;
-      padding: 8px 22px;
-      border-radius: 999px;
-      box-shadow: 0 4px 0 #7a080b;
-      transition: transform .1s, box-shadow .1s;
-    }
-
-    .btn:hover {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #7a080b;
-    }
+    .shop h3 { color: var(--brown); font-size: 1.4rem; }
+    .shop p { color: #9a7764; margin: 6px 0 14px; }
 
     footer {
       text-align: center;
@@ -649,18 +442,36 @@
       border-radius: 999px;
       font-size: 1.05rem;
     }
+
+    @media (max-width: 960px) {
+      .box { margin: 30px 14px; }
+    }
+
+    @media (max-width: 640px) {
+      .box { padding: 30px 18px; }
+      .entry { grid-template-columns: 1fr; }
+      .sticker.pair { width: 100px; }
+      .sticker.ribbon { width: 64px; }
+      .tl, .tr { top: -36px; }
+      .bl, .br { bottom: -30px; }
+      .wish li { padding: 12px; gap: 10px; }
+      .wish-photo { width: 72px; height: 84px; }
+    }
+
+    @media (max-width: 400px) {
+      .wish-name-row { flex-wrap: wrap; }
+      .wish-name-row input { flex-basis: 100%; }
+    }
   </style>
 </head>
 
 <body>
-  <!-- 상단 메뉴 -->
   <nav>
     <a href="#dex">📖 도감</a>
     <a href="#wish">♡ 위시리스트</a>
     <a href="#shop">🛒 구매처</a>
   </nav>
 
-  <!-- 첫 화면 -->
   <header class="box">
     <div class="sticker ribbon tl" style="--r:-14deg"></div>
     <img class="hero-img" src="main.jpg" alt="몬치치 두 마리">
@@ -682,7 +493,7 @@
     </div>
 
     <div class="dex">
-      <!-- GitHub용 코드로 복사한 몬치 카드는 아래 ＋ 카드 바로 위에 붙여넣어요 -->
+      <!-- GitHub용 도감 카드는 아래 ＋ 카드 바로 위에 붙여넣어요 -->
 
       <div class="entry empty" id="addBtn" role="button" tabindex="0">
         <div class="photo-empty">＋</div>
@@ -697,10 +508,24 @@
     <form id="addForm" class="add-form" hidden>
       <h3 id="formTitle">첫 번째 몬치 등록</h3>
 
-      <label>
-        📷 사진
-        <input type="file" accept="image/*" id="fPhoto">
-      </label>
+      <div class="photo-tools">
+        <button type="button" class="btn" id="dexPhotoPick">
+          📷 사진 첨부하기
+        </button>
+        <input type="file" id="fPhoto" accept="image/*" hidden>
+        <img
+          id="dexPhotoPreview"
+          class="photo-preview"
+          alt="도감 사진 미리보기"
+          hidden
+        >
+        <button type="button" class="mini" id="dexPhotoClear" hidden>
+          사진 빼기
+        </button>
+      </div>
+
+      <p class="hint">사진은 작게 줄여 저장해요. 사진 없이 등록할 수도 있어요.</p>
+      <p id="dexPhotoStatus" class="status" role="status"></p>
 
       <label>
         🏠 입주 날짜
@@ -722,7 +547,7 @@
       </label>
 
       <div class="form-btns">
-        <button type="submit" class="btn">등록하기</button>
+        <button type="submit" class="btn" id="dexSubmit">등록하기</button>
         <button type="button" class="btn ghost" id="cancelBtn">취소</button>
       </div>
     </form>
@@ -735,7 +560,7 @@
     <p class="sub">언젠가 꼭 데려올 몬치들</p>
 
     <form class="wish-form" id="wishForm">
-      <label for="wishInput">만나고 싶은 몬치</label>
+      <label for="wishInput" id="wishFormTitle">만나고 싶은 몬치</label>
 
       <div class="wish-name-row">
         <input
@@ -747,43 +572,30 @@
         <button type="submit" class="btn" id="wishSubmit">＋ 추가</button>
       </div>
 
-      <label for="wishPhoto">📷 사진 붙이기 (선택)</label>
-
-      <div class="wish-photo-tools">
-        <input
-          type="file"
-          id="wishPhoto"
-          accept="image/*"
-          aria-describedby="wishPhotoHint"
-        >
-
+      <div class="photo-tools">
+        <button type="button" class="btn" id="wishPhotoPick">
+          📷 사진 첨부하기
+        </button>
+        <input type="file" id="wishPhoto" accept="image/*" hidden>
         <img
           id="wishPhotoPreview"
-          class="wish-photo-preview"
-          alt="첨부할 몬치 사진 미리보기"
+          class="photo-preview"
+          alt="위시 사진 미리보기"
           hidden
         >
-
-        <button
-          type="button"
-          id="wishPhotoClear"
-          class="mini wish-photo-clear"
-          hidden
-        >
+        <button type="button" class="mini" id="wishPhotoClear" hidden>
           사진 빼기
         </button>
       </div>
 
-      <p id="wishPhotoHint" class="wish-photo-hint">
-        사진 없이도 추가할 수 있어요. 사진은 작게 줄여 이 브라우저에 저장해요.
-      </p>
+      <p class="hint">사진 없이도 추가할 수 있어요.</p>
+      <p id="wishStatus" class="status" role="status" aria-live="polite"></p>
 
-      <p
-        id="wishStatus"
-        role="status"
-        aria-live="polite"
-        class="wish-photo-hint"
-      ></p>
+      <div>
+        <button type="button" class="mini" id="wishCancelEdit" hidden>
+          수정 취소
+        </button>
+      </div>
     </form>
 
     <p class="sub" id="wishEmpty">아직 적은 위시가 없어요</p>
@@ -805,9 +617,7 @@
           href="https://smartstore.naver.com/huwa_official"
           target="_blank"
           rel="noopener noreferrer"
-        >
-          구경 가기 →
-        </a>
+        >구경 가기 →</a>
       </div>
 
       <div class="shop">
@@ -818,9 +628,7 @@
           href="https://smartstore.naver.com/kitchenmall"
           target="_blank"
           rel="noopener noreferrer"
-        >
-          구경 가기 →
-        </a>
+        >구경 가기 →</a>
       </div>
     </div>
   </section>
@@ -830,39 +638,18 @@
   </footer>
 
   <script>
+    const $ = id => document.getElementById(id);
     const KEY = 'monchidogam-v1';
     const WKEY = 'monchidogam-wish-v1';
 
-    const $ = id => document.getElementById(id);
     const dex = document.querySelector('.dex');
     const addBtn = $('addBtn');
-    const form = $('addForm');
-
-    // 숫자를 한국어 순서로 바꾸기
-    function ord(n) {
-      if (n === 1) return '첫';
-      if (n === 20) return '스무';
-
-      const u = [
-        '', '한', '두', '세', '네',
-        '다섯', '여섯', '일곱', '여덟', '아홉'
-      ];
-
-      const t = [
-        '', '열', '스물', '서른', '마흔',
-        '쉰', '예순', '일흔', '여든', '아흔'
-      ];
-
-      if (n >= 100) return String(n);
-
-      return t[Math.floor(n / 10)] + u[n % 10];
-    }
+    const dexForm = $('addForm');
 
     const pad = n => String(n).padStart(3, '0');
-
     const fmtDate = d => d ? d.replaceAll('-', '.') : '-';
 
-    const esc = s => String(s).replace(
+    const esc = value => String(value ?? '').replace(
       /[&<>"]/g,
       c => ({
         '&': '&amp;',
@@ -872,21 +659,38 @@
       }[c])
     );
 
-    // 저장된 도감 불러오기
-    function load() {
+    function ord(n) {
+      if (n === 1) return '첫';
+      if (n === 20) return '스무';
+      if (n >= 100) return String(n);
+
+      const units = [
+        '', '한', '두', '세', '네',
+        '다섯', '여섯', '일곱', '여덟', '아홉'
+      ];
+
+      const tens = [
+        '', '열', '스물', '서른', '마흔',
+        '쉰', '예순', '일흔', '여든', '아흔'
+      ];
+
+      return tens[Math.floor(n / 10)] + units[n % 10];
+    }
+
+    function loadList(key) {
       try {
-        const list = JSON.parse(localStorage.getItem(KEY));
+        const list = JSON.parse(localStorage.getItem(key));
         return Array.isArray(list) ? list : [];
-      } catch (e) {
+      } catch (error) {
         return [];
       }
     }
 
-    function save(list) {
+    function saveList(key, list) {
       try {
-        localStorage.setItem(KEY, JSON.stringify(list));
+        localStorage.setItem(key, JSON.stringify(list));
         return true;
-      } catch (e) {
+      } catch (error) {
         alert(
           '저장하지 못했어요. 브라우저 저장 공간이나 저장 허용 설정을 확인해 주세요.'
         );
@@ -935,11 +739,9 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-            resolve(canvas.toDataURL('image/jpeg', 0.8));
-          } catch (e) {
-            reject(
-              new Error('사진을 처리하지 못했어요. 다른 사진으로 다시 시도해 주세요.')
-            );
+            resolve(canvas.toDataURL('image/jpeg', .8));
+          } catch (error) {
+            reject(new Error('사진을 처리하지 못했어요. 다른 사진으로 시도해 주세요.'));
           } finally {
             URL.revokeObjectURL(url);
           }
@@ -947,442 +749,564 @@
 
         img.onerror = () => {
           URL.revokeObjectURL(url);
-
-          reject(
-            new Error(
-              '사진을 열 수 없어요. JPG, PNG 또는 WebP 사진으로 다시 시도해 주세요.'
-            )
-          );
+          reject(new Error('사진을 열 수 없어요. JPG, PNG 또는 WebP로 시도해 주세요.'));
         };
 
         img.src = url;
       });
     }
 
-    // HTML에 직접 붙여넣은 도감 카드 개수
-    const fixedCount = dex.querySelectorAll(
-      '.entry:not(.empty)'
-    ).length;
+    // 도감과 위시리스트에서 함께 쓰는 사진 첨부 기능
+    function createPhotoControl(options) {
+      let photo = '';
+      let version = 0;
+      let busy = false;
 
-    // 도감 카드 만들기
-    function makeCard(m, n, idx) {
+      const input = $(options.input);
+      const pick = $(options.pick);
+      const clear = $(options.clear);
+      const preview = $(options.preview);
+      const status = $(options.status);
+      const submit = $(options.submit);
+
+      function show() {
+        preview.hidden = !photo;
+        clear.hidden = !photo;
+        pick.textContent = photo
+          ? '📷 사진 바꾸기'
+          : '📷 사진 첨부하기';
+
+        if (photo) preview.src = photo;
+        else preview.removeAttribute('src');
+      }
+
+      function set(value) {
+        version++;
+        photo = value || '';
+        busy = false;
+        input.value = '';
+        submit.disabled = false;
+        status.textContent = '';
+        show();
+      }
+
+      pick.onclick = () => input.click();
+
+      clear.onclick = () => set('');
+
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        const currentVersion = ++version;
+        busy = true;
+        submit.disabled = true;
+        status.textContent = '사진을 준비하고 있어요…';
+
+        try {
+          const result = await readPhoto(file);
+
+          if (currentVersion !== version) return;
+
+          photo = result;
+          show();
+          status.textContent = '사진 준비 완료! 저장 버튼을 눌러 주세요.';
+        } catch (error) {
+          if (currentVersion === version) {
+            status.textContent = error.message;
+          }
+        } finally {
+          if (currentVersion === version) {
+            busy = false;
+            submit.disabled = false;
+            input.value = '';
+          }
+        }
+      };
+
+      return {
+        set,
+        get: () => photo,
+        isBusy: () => busy
+      };
+    }
+
+    const dexPhoto = createPhotoControl({
+      input: 'fPhoto',
+      pick: 'dexPhotoPick',
+      clear: 'dexPhotoClear',
+      preview: 'dexPhotoPreview',
+      status: 'dexPhotoStatus',
+      submit: 'dexSubmit'
+    });
+
+    const wishPhoto = createPhotoControl({
+      input: 'wishPhoto',
+      pick: 'wishPhotoPick',
+      clear: 'wishPhotoClear',
+      preview: 'wishPhotoPreview',
+      status: 'wishStatus',
+      submit: 'wishSubmit'
+    });
+
+    // ==================== 도감 ====================
+
+    let editingDex = null;
+
+    // HTML에 직접 붙여넣은 카드도 브라우저에서 수정할 수 있게 준비해요.
+    const fixedCards = Array.from(
+      dex.querySelectorAll('.entry:not(.empty)')
+    );
+
+    const FIXED_KEY = 'monchidogam-fixed-edits-v1';
+
+    function fixedId(card, index) {
+      return card.dataset.recordId ||
+        card.querySelector('.no')?.textContent.trim() ||
+        'fixed-' + index;
+    }
+
+    function readFixed(card) {
+      const rows = card.querySelectorAll('.row');
+
+      function rowValue(row) {
+        if (!row) return '';
+        const copy = row.cloneNode(true);
+        copy.querySelector('.label')?.remove();
+        return copy.textContent.trim();
+      }
+
+      return {
+        photo: card.querySelector('img')?.getAttribute('src') || '',
+        date: rowValue(rows[0]).replaceAll('.', '-'),
+        shop: rowValue(rows[1]),
+        memo: (
+          card.querySelector('.memo')?.textContent || ''
+        ).replace(/^\s*📝\s*메모:\s*/, '')
+      };
+    }
+
+    // 원래 HTML에 적힌 기록을 보관해 둬요.
+    const originalFixed = fixedCards.map((card, index) => ({
+      id: fixedId(card, index),
+      record: readFixed(card)
+    }));
+
+    function loadFixedEdits() {
+      try {
+        const data = JSON.parse(localStorage.getItem(FIXED_KEY));
+        return data && typeof data === 'object' && !Array.isArray(data)
+          ? data
+          : {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveFixedEdits(data) {
+      try {
+        localStorage.setItem(FIXED_KEY, JSON.stringify(data));
+        return true;
+      } catch (error) {
+        alert('수정 내용을 저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.');
+        return false;
+      }
+    }
+
+    function getFixedRecords() {
+      const edits = loadFixedEdits();
+
+      return originalFixed
+        .filter(item => !edits[item.id]?.deleted)
+        .map(item => ({
+          id: item.id,
+          record: edits[item.id]?.record || item.record
+        }));
+    }
+
+    function today() {
+      const d = new Date();
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0, 10);
+    }
+
+    function closeDexForm() {
+      editingDex = null;
+      dexForm.reset();
+      dexPhoto.set('');
+      dexForm.hidden = true;
+      $('dexSubmit').textContent = '등록하기';
+    }
+
+    function openDexForm(target = null, record = null, number = null) {
+      closeDexForm();
+      editingDex = target;
+
+      if (record) {
+        $('formTitle').textContent = ord(number) + ' 번째 몬치 수정';
+        $('dexSubmit').textContent = '수정 저장';
+
+        $('fDate').value = record.date || '';
+        $('fShop').value = record.shop || '';
+        $('fMemo').value = record.memo || '';
+
+        dexPhoto.set(record.photo);
+      } else {
+        const next = getFixedRecords().length + loadList(KEY).length + 1;
+        $('formTitle').textContent = ord(next) + ' 번째 몬치 등록';
+        $('fDate').value = today();
+      }
+
+      dexForm.hidden = false;
+      dexForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function makeDexCard(record, number, target) {
       const card = document.createElement('div');
-      card.className = 'entry added';
+      card.className = 'entry rendered';
 
       card.innerHTML = `
-        ${
-          m.photo
-            ? `<img src="${esc(m.photo)}" alt="${ord(n)} 번째 몬치">`
-            : '<div class="photo-empty">🎀</div>'
-        }
+        <div class="card-photo"></div>
+
         <div>
-          <span class="no">No.${pad(n)}</span>
-          <h3>${ord(n)} 번째 몬치</h3>
+          <span class="no">No.${pad(number)}</span>
+          <h3>${ord(number)} 번째 몬치</h3>
 
           <div class="row">
             <span class="label">🏠 입주 날짜</span>
-            ${esc(fmtDate(m.date))}
+            ${esc(fmtDate(record.date))}
           </div>
 
           <div class="row">
             <span class="label">🛍️ 데려온 곳</span>
-            ${esc(m.shop || '-')}
+            ${esc(record.shop || '-')}
           </div>
 
-          <div class="memo">📝 메모: ${esc(m.memo || '')}</div>
+          <div class="memo">📝 메모: ${esc(record.memo || '')}</div>
 
           <div class="card-tools">
-            <button type="button" class="mini" data-act="code">
-              📋 GitHub용 코드 복사
-            </button>
-            <button type="button" class="mini" data-act="del">
-              🗑️ 삭제
-            </button>
+            <button type="button" class="mini" data-edit>✏️ 수정</button>
+            <button type="button" class="mini" data-code>📋 GitHub용 코드 복사</button>
+            <button type="button" class="mini" data-delete>🗑️ 삭제</button>
           </div>
         </div>
       `;
 
-      card.querySelector('[data-act="del"]').onclick = () => {
-        if (!confirm(`${ord(n)} 번째 몬치를 삭제할까요?`)) {
-          return;
-        }
+      const photoBox = card.querySelector('.card-photo');
 
-        const list = load();
-        list.splice(idx, 1);
+      if (record.photo) {
+        const img = document.createElement('img');
+        img.src = record.photo;
+        img.alt = ord(number) + ' 번째 몬치';
+        photoBox.appendChild(img);
+      } else {
+        photoBox.className = 'photo-empty';
+        photoBox.textContent = '🎀';
+      }
 
-        if (save(list)) render();
+      card.querySelector('[data-edit]').onclick = () => {
+        openDexForm(
+          { ...target, original: JSON.stringify(record) },
+          record,
+          number
+        );
       };
 
-      card.querySelector('[data-act="code"]').onclick = () => {
-        copyCode(m, n);
+      card.querySelector('[data-code]').onclick = () => {
+        copyCode(record, number);
+      };
+
+      card.querySelector('[data-delete]').onclick = () => {
+        if (!confirm(`${ord(number)} 번째 몬치를 삭제할까요?`)) return;
+
+        if (target.type === 'fixed') {
+          const edits = loadFixedEdits();
+          edits[target.id] = { deleted: true };
+
+          if (!saveFixedEdits(edits)) return;
+        } else {
+          const list = loadList(KEY);
+          list.splice(target.index, 1);
+
+          if (!saveList(KEY, list)) return;
+        }
+
+        closeDexForm();
+        renderDex();
       };
 
       return card;
     }
 
-    // 도감 화면 갱신
-    function render() {
-      dex.querySelectorAll('.added').forEach(e => e.remove());
+    function renderDex() {
+      fixedCards.forEach(card => card.remove());
+      dex.querySelectorAll('.rendered').forEach(card => card.remove());
 
-      const list = load();
+      const fixed = getFixedRecords();
+      const list = loadList(KEY);
 
-      list.forEach((m, i) => {
+      fixed.forEach((item, i) => {
         dex.insertBefore(
-          makeCard(m, fixedCount + i + 1, i),
+          makeDexCard(item.record, i + 1, {
+            type: 'fixed',
+            id: item.id
+          }),
           addBtn
         );
       });
 
-      const next = fixedCount + list.length + 1;
+      list.forEach((record, i) => {
+        dex.insertBefore(
+          makeDexCard(record, fixed.length + i + 1, {
+            type: 'local',
+            index: i
+          }),
+          addBtn
+        );
+      });
+
+      const total = fixed.length + list.length;
+      const next = total + 1;
 
       $('nextNo').textContent = 'No.' + pad(next);
       $('nextName').textContent = ord(next) + ' 번째 몬치';
-      $('formTitle').textContent = ord(next) + ' 번째 몬치 등록';
 
-      $('count').textContent = next - 1 > 0
-        ? '현재 입주 몬치: ' + (next - 1) + '마리'
+      $('count').textContent = total
+        ? '현재 입주 몬치: ' + total + '마리'
         : '아직 입주한 몬치가 없어요';
     }
 
-    // 도감 등록 창 열기
-    function openForm() {
-      form.hidden = false;
-
-      if (!$('fDate').value) {
-        const d = new Date();
-        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-        $('fDate').value = d.toISOString().slice(0, 10);
-      }
-
-      form.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-    }
-
-    addBtn.onclick = openForm;
-    $('addTop').onclick = openForm;
+    $('addTop').onclick = () => openDexForm();
+    addBtn.onclick = () => openDexForm();
 
     addBtn.onkeydown = e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openForm();
+        openDexForm();
       }
     };
 
-    $('cancelBtn').onclick = () => {
-      form.reset();
-      form.hidden = true;
-    };
+    $('cancelBtn').onclick = closeDexForm;
 
-    // 도감 등록하기
-    form.onsubmit = async e => {
+    dexForm.onsubmit = e => {
       e.preventDefault();
+      if (dexPhoto.isBusy()) return;
 
-      const submit = form.querySelector('[type="submit"]');
-      if (submit.disabled) return;
+      const record = {
+        photo: dexPhoto.get(),
+        date: $('fDate').value,
+        shop: $('fShop').value.trim(),
+        memo: $('fMemo').value.trim()
+      };
 
-      submit.disabled = true;
-      $('cancelBtn').disabled = true;
+      if (editingDex?.type === 'fixed') {
+        const current = getFixedRecords().find(
+          item => item.id === editingDex.id
+        );
 
-      try {
-        const file = $('fPhoto').files[0];
+        if (
+          !current ||
+          JSON.stringify(current.record) !== editingDex.original
+        ) {
+          alert('기록이 변경되었어요. 취소한 뒤 다시 수정해 주세요.');
+          return;
+        }
 
-        const m = {
-          photo: file ? await readPhoto(file) : '',
-          date: $('fDate').value,
-          shop: $('fShop').value.trim(),
-          memo: $('fMemo').value.trim()
-        };
+        const edits = loadFixedEdits();
+        edits[editingDex.id] = { record };
 
-        const list = load();
-        list.push(m);
+        if (!saveFixedEdits(edits)) return;
+      } else {
+        const list = loadList(KEY);
 
-        if (!save(list)) return;
+        if (editingDex) {
+          if (
+            JSON.stringify(list[editingDex.index]) !== editingDex.original
+          ) {
+            alert('기록이 변경되었어요. 취소한 뒤 다시 수정해 주세요.');
+            return;
+          }
 
-        form.reset();
-        form.hidden = true;
-        render();
-      } catch (error) {
-        alert(error.message);
-      } finally {
-        submit.disabled = false;
-        $('cancelBtn').disabled = false;
+          list[editingDex.index] = record;
+        } else {
+          list.push(record);
+        }
+
+        if (!saveList(KEY, list)) return;
       }
+
+      closeDexForm();
+      renderDex();
     };
 
-    // GitHub에 붙여넣을 도감 코드 복사
-    function copyCode(m, n) {
+    function copyCode(record, number) {
       const code =
 `      <div class="entry">
-        <img src="monchi${n}.jpg" alt="${ord(n)} 번째 몬치">
+        <img src="monchi${number}.jpg" alt="${ord(number)} 번째 몬치">
         <div>
-          <span class="no">No.${pad(n)}</span>
-          <h3>${ord(n)} 번째 몬치</h3>
-          <div class="row"><span class="label">🏠 입주 날짜</span>${esc(fmtDate(m.date))}</div>
-          <div class="row"><span class="label">🛍️ 데려온 곳</span>${esc(m.shop || '-')}</div>
-          <div class="memo">📝 메모: ${esc(m.memo || '')}</div>
+          <span class="no">No.${pad(number)}</span>
+          <h3>${ord(number)} 번째 몬치</h3>
+          <div class="row"><span class="label">🏠 입주 날짜</span>${esc(fmtDate(record.date))}</div>
+          <div class="row"><span class="label">🛍️ 데려온 곳</span>${esc(record.shop || '-')}</div>
+          <div class="memo">📝 메모: ${esc(record.memo || '')}</div>
         </div>
       </div>`;
 
       const done = () => {
         alert(
-          `복사했어요! index.html의 ＋버튼 카드 바로 위에 붙여넣고,\n` +
-          `사진은 monchi${n}.jpg 이름으로 index.html 옆에 올려 주세요.\n` +
-          `그다음 여기서 이 카드는 삭제하면 돼요.`
+          '복사했어요! index.html의 ＋ 카드 바로 위에 붙여넣어 주세요.\n' +
+          `사진은 monchi${number}.jpg 이름으로 index.html 옆에 올려 주세요.\n` +
+          '사이트에서 사진을 바꾼 경우, 올리는 사진 파일도 함께 바꿔 주세요.'
         );
       };
 
       if (navigator.clipboard) {
         navigator.clipboard.writeText(code).then(
           done,
-          () => prompt('아래 코드를 복사하세요', code)
+          () => prompt('아래 코드를 복사해 주세요', code)
         );
       } else {
-        prompt('아래 코드를 복사하세요', code);
+        prompt('아래 코드를 복사해 주세요', code);
       }
     }
 
-    render();
+    // ==================== 위시리스트 ====================
 
-    // 위시리스트 불러오기
-    // 기존 키를 유지해서 이전 기록도 그대로 표시해요.
-    function loadWish() {
-      try {
-        const list = JSON.parse(localStorage.getItem(WKEY));
-        return Array.isArray(list) ? list : [];
-      } catch (e) {
-        return [];
-      }
+    let editingWish = null;
+
+    function resetWishForm() {
+      editingWish = null;
+      $('wishForm').reset();
+      wishPhoto.set('');
+      $('wishSubmit').textContent = '＋ 추가';
+      $('wishFormTitle').textContent = '만나고 싶은 몬치';
+      $('wishCancelEdit').hidden = true;
     }
 
-    function saveWish(list) {
-      try {
-        localStorage.setItem(WKEY, JSON.stringify(list));
-        return true;
-      } catch (e) {
-        alert(
-          '위시리스트를 저장하지 못했어요. 브라우저 저장 공간이나 저장 허용 설정을 확인해 주세요.'
-        );
-        return false;
-      }
+    function editWish(index) {
+      const list = loadList(WKEY);
+      const record = list[index];
+
+      if (!record) return;
+
+      resetWishForm();
+
+      editingWish = {
+        index,
+        original: JSON.stringify(record)
+      };
+
+      $('wishInput').value = record.name;
+      wishPhoto.set(record.photo);
+
+      $('wishSubmit').textContent = '수정 저장';
+      $('wishFormTitle').textContent = '✏️ 위시리스트 수정 중';
+      $('wishCancelEdit').hidden = false;
+      $('wishStatus').textContent =
+        '이름과 사진을 바꾼 뒤 수정 저장을 눌러 주세요.';
+
+      $('wishForm').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      $('wishInput').focus({ preventScroll: true });
     }
 
-    // 새 위시에 첨부할 사진
-    let wishDraftPhoto = '';
-    let wishPhotoVersion = 0;
-
-    function showWishPreview() {
-      const preview = $('wishPhotoPreview');
-
-      preview.hidden = !wishDraftPhoto;
-
-      if (wishDraftPhoto) {
-        preview.src = wishDraftPhoto;
-      } else {
-        preview.removeAttribute('src');
-      }
-
-      $('wishPhotoClear').hidden = !wishDraftPhoto;
-    }
-
-    // 새 위시 사진 선택
-    $('wishPhoto').onchange = async () => {
-      const version = ++wishPhotoVersion;
-      const file = $('wishPhoto').files[0];
-
-      if (!file) return;
-
-      $('wishSubmit').disabled = true;
-      $('wishStatus').textContent = '사진을 준비하고 있어요…';
-
-      try {
-        const photo = await readPhoto(file);
-
-        if (version !== wishPhotoVersion) return;
-
-        wishDraftPhoto = photo;
-        showWishPreview();
-
-        $('wishStatus').textContent =
-          '사진 준비 완료! 추가를 누르면 저장돼요.';
-      } catch (error) {
-        if (version === wishPhotoVersion) {
-          $('wishStatus').textContent = error.message;
-        }
-      } finally {
-        if (version === wishPhotoVersion) {
-          $('wishSubmit').disabled = false;
-          $('wishPhoto').value = '';
-        }
-      }
-    };
-
-    // 새 위시의 첨부 사진 빼기
-    $('wishPhotoClear').onclick = () => {
-      wishPhotoVersion++;
-      wishDraftPhoto = '';
-
-      $('wishPhoto').value = '';
-      $('wishSubmit').disabled = false;
-      $('wishStatus').textContent = '';
-
-      showWishPreview();
-    };
-
-    // 위시리스트 화면 갱신
     function renderWish() {
-      const list = loadWish();
+      const list = loadList(WKEY);
       const ul = $('wishList');
 
       ul.innerHTML = '';
       $('wishEmpty').hidden = list.length > 0;
 
-      list.forEach((w, i) => {
+      list.forEach((record, index) => {
         const li = document.createElement('li');
 
-        if (w.got) {
-          li.className = 'got';
-        }
+        if (record.got) li.className = 'got';
 
         li.innerHTML = `
           <div class="wish-details">
-            <span class="name">${esc(w.name)}</span>
+            <div class="wish-name">${esc(record.name)}</div>
 
             <div class="wish-actions">
+              <button type="button" class="mini" data-edit>✏️ 수정</button>
               <button type="button" class="mini" data-photo>
-                📷 ${w.photo ? '사진 바꾸기' : '사진 붙이기'}
+                📷 ${record.photo ? '사진 바꾸기' : '사진 붙이기'}
               </button>
-
-              ${
-                w.photo
-                  ? '<button type="button" class="mini" data-remove-photo>사진 빼기</button>'
-                  : ''
-              }
+              <button type="button" class="mini" data-delete>🗑️ 삭제</button>
             </div>
           </div>
 
           <button
             type="button"
             class="tag"
-            aria-pressed="${!!w.got}"
-          >
-            ${w.got ? '데려옴!' : '갖고 싶어'}
-          </button>
-
-          <button
-            type="button"
-            class="del"
-            aria-label="${esc(w.name)} 지우기"
-          >×</button>
+            aria-pressed="${!!record.got}"
+          >${record.got ? '데려옴!' : '갖고 싶어'}</button>
         `;
 
-        // 저장된 사진 표시
-        if (w.photo) {
+        if (record.photo) {
           const img = document.createElement('img');
-
           img.className = 'wish-photo';
-          img.src = w.photo;
-          img.alt = w.name + ' 사진';
-
+          img.src = record.photo;
+          img.alt = record.name + ' 사진';
           li.prepend(img);
+        } else {
+          const empty = document.createElement('div');
+          empty.className = 'wish-photo wish-placeholder';
+          empty.textContent = '♡';
+          empty.setAttribute('aria-hidden', 'true');
+          li.prepend(empty);
         }
 
-        // 기존 위시 사진 선택기
-        const picker = document.createElement('input');
+        li.querySelector('[data-edit]').onclick = () => editWish(index);
 
-        picker.type = 'file';
-        picker.accept = 'image/*';
-        picker.hidden = true;
-
-        li.appendChild(picker);
-
-        const photoButton = li.querySelector('[data-photo]');
-
-        photoButton.onclick = () => {
-          picker.click();
+        li.querySelector('[data-photo]').onclick = () => {
+          editWish(index);
+          $('wishPhoto').click();
         };
 
-        // 기존 위시에 사진 추가 또는 교체
-        picker.onchange = async () => {
-          const file = picker.files[0];
-
-          if (!file) return;
-
-          photoButton.disabled = true;
-
-          try {
-            const photo = await readPhoto(file);
-            const latest = loadWish();
-
-            // 사진 처리 중 목록이 바뀌면 잘못된 항목에 저장하지 않아요.
-            if (
-              JSON.stringify(latest[i]) !== JSON.stringify(w)
-            ) {
-              alert('목록이 변경되었어요. 사진을 다시 선택해 주세요.');
-              renderWish();
-              return;
-            }
-
-            latest[i].photo = photo;
-
-            if (saveWish(latest)) {
-              renderWish();
-            }
-          } catch (error) {
-            alert(error.message);
-          } finally {
-            photoButton.disabled = false;
-            picker.value = '';
-          }
-        };
-
-        // 기존 위시 사진만 삭제
-        const removePhoto = li.querySelector('[data-remove-photo]');
-
-        if (removePhoto) {
-          removePhoto.onclick = () => {
-            delete list[i].photo;
-
-            if (saveWish(list)) {
-              renderWish();
-            }
-          };
-        }
-
-        // 데려옴 상태 변경
         li.querySelector('.tag').onclick = () => {
-          list[i].got = !list[i].got;
+          const latest = loadList(WKEY);
+          if (!latest[index]) return;
 
-          if (saveWish(list)) {
-            renderWish();
+          latest[index].got = !latest[index].got;
+
+          if (!saveList(WKEY, latest)) return;
+
+          // 현재 수정 중인 항목이면 상태 변경도 유지해요.
+          if (editingWish?.index === index) {
+            editingWish.original = JSON.stringify(latest[index]);
           }
+
+          renderWish();
         };
 
-        // 위시 항목 삭제
-        li.querySelector('.del').onclick = () => {
+        li.querySelector('[data-delete]').onclick = () => {
           if (
-            !confirm(`'${w.name}'을(를) 위시리스트에서 지울까요?`)
-          ) {
-            return;
-          }
+            !confirm(`'${record.name}'을(를) 위시리스트에서 지울까요?`)
+          ) return;
 
-          list.splice(i, 1);
+          const latest = loadList(WKEY);
+          latest.splice(index, 1);
 
-          if (saveWish(list)) {
-            renderWish();
-          }
+          if (!saveList(WKEY, latest)) return;
+
+          // 삭제로 순서가 바뀌면 잘못된 항목을 수정하지 않도록 닫아요.
+          resetWishForm();
+          renderWish();
         };
 
         ul.appendChild(li);
       });
     }
 
-    // 새 위시 추가
+    $('wishCancelEdit').onclick = resetWishForm;
+
     $('wishForm').onsubmit = e => {
       e.preventDefault();
 
-      if ($('wishSubmit').disabled) return;
+      if (wishPhoto.isBusy()) return;
 
       const name = $('wishInput').value.trim();
 
@@ -1391,26 +1315,47 @@
         return;
       }
 
-      const list = loadWish();
+      const list = loadList(WKEY);
+      const wasEditing = !!editingWish;
 
-      list.push({
-        name,
-        got: false,
-        photo: wishDraftPhoto
-      });
+      if (editingWish) {
+        if (
+          JSON.stringify(list[editingWish.index]) !== editingWish.original
+        ) {
+          alert('목록이 변경되었어요. 수정 취소 후 다시 시도해 주세요.');
+          return;
+        }
 
-      if (!saveWish(list)) return;
+        list[editingWish.index] = {
+          ...list[editingWish.index],
+          name,
+          photo: wishPhoto.get()
+        };
+      } else {
+        list.push({
+          name,
+          photo: wishPhoto.get(),
+          got: false
+        });
+      }
 
-      $('wishForm').reset();
-      wishDraftPhoto = '';
+      if (!saveList(WKEY, list)) return;
 
-      showWishPreview();
-
-      $('wishStatus').textContent = '위시리스트에 추가했어요.';
-
+      resetWishForm();
       renderWish();
+
+      $('wishStatus').textContent = wasEditing
+        ? '수정 내용을 저장했어요.'
+        : '위시리스트에 추가했어요.';
     };
 
+    // 다른 탭에서 바뀐 기록도 화면에 반영해요.
+    window.addEventListener('storage', e => {
+      if (e.key === KEY || e.key === FIXED_KEY) renderDex();
+      if (e.key === WKEY) renderWish();
+    });
+
+    renderDex();
     renderWish();
   </script>
 </body>
