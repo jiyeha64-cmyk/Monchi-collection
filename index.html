@@ -231,6 +231,22 @@
       background: var(--pink); color: var(--brown);
       white-space: nowrap;
     }
+    .wish-form { display: flex; gap: 10px; margin-bottom: 16px; }
+    .wish-form input {
+      flex: 1; min-width: 0;
+      font-family: inherit; font-size: 1rem; color: var(--text);
+      padding: 10px 14px;
+      border: 2px solid var(--pink); border-radius: 999px;
+      background: white;
+      -webkit-text-stroke: 0;
+    }
+    .wish-form input:focus, .add-form input:focus, .add-form textarea:focus { outline: none; border-color: var(--red); }
+    button.tag { border: none; cursor: pointer; }
+    .del {
+      border: none; background: none; cursor: pointer;
+      color: #c9a9a0; font-size: 1.2rem; padding: 0 4px;
+    }
+    .del:hover { color: var(--red); }
     .wish li.got { opacity: .55; }
     .wish li.got::before { content: "♥"; }
     .wish li.got .name { text-decoration: line-through; }
@@ -296,6 +312,9 @@
     <div class="sticker pair tr" style="--r:9deg"></div>
     <h2>📖 몬치 도감</h2>
     <p class="sub">우리 집에 온 순서대로 기록해요</p>
+    <div style="text-align:center; margin-bottom:24px">
+      <button type="button" class="btn" id="addTop">＋ 새 몬치 등록하기</button>
+    </div>
 
     <div class="dex">
 
@@ -333,13 +352,13 @@
     <h2>♡ 위시리스트</h2>
     <p class="sub">언젠가 꼭 데려올 몬치들</p>
 
-    <ul class="wish">
-      <!-- 갖고 싶은 것 -->
-      <li><span class="name">갖고 싶은 몬치 이름 1</span><span class="tag">갖고 싶어</span></li>
-      <li><span class="name">갖고 싶은 몬치 이름 2</span><span class="tag">갖고 싶어</span></li>
-      <!-- 데려온 건 class="got" 을 붙이면 줄이 그어져요 -->
-      <li class="got"><span class="name">데려온 몬치 이름</span><span class="tag">데려옴!</span></li>
-    </ul>
+    <!-- 여기에 적고 ＋ 추가를 누르면 목록에 들어가요 -->
+    <form class="wish-form" id="wishForm">
+      <input id="wishInput" maxlength="40" placeholder="갖고 싶은 몬치 이름을 적어요">
+      <button type="submit" class="btn">＋ 추가</button>
+    </form>
+    <p class="sub" id="wishEmpty">아직 적은 위시가 없어요</p>
+    <ul class="wish" id="wishList"></ul>
   </section>
 
   <!-- ============ 구매처 ============ -->
@@ -443,6 +462,7 @@
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     addBtn.onclick = openForm;
+    $('addTop').onclick = openForm;
     addBtn.onkeydown = e => { if (e.key === 'Enter') openForm(); };
     $('cancelBtn').onclick = () => { form.reset(); form.hidden = true; };
 
@@ -499,6 +519,42 @@
     }
 
     render();
+
+    // ============ 위시리스트 (적기 / 데려옴 체크 / 지우기) ============
+    const WKEY = 'monchidogam-wish-v1';
+    const loadWish = () => { try { return JSON.parse(localStorage.getItem(WKEY)) || []; } catch (e) { return []; } };
+    const saveWish = list => { try { localStorage.setItem(WKEY, JSON.stringify(list)); } catch (e) {} };
+
+    function renderWish() {
+      const list = loadWish();
+      const ul = $('wishList');
+      ul.innerHTML = '';
+      $('wishEmpty').hidden = list.length > 0;
+      list.forEach((w, i) => {
+        const li = document.createElement('li');
+        if (w.got) li.className = 'got';
+        li.innerHTML = `<span class="name">${esc(w.name)}</span>
+          <button type="button" class="tag">${w.got ? '데려옴!' : '갖고 싶어'}</button>
+          <button type="button" class="del" aria-label="지우기">×</button>`;
+        // 태그를 누르면 '갖고 싶어' ↔ '데려옴!' 바뀜
+        li.querySelector('.tag').onclick = () => { list[i].got = !list[i].got; saveWish(list); renderWish(); };
+        li.querySelector('.del').onclick = () => {
+          if (!confirm(`'${w.name}'을(를) 위시리스트에서 지울까요?`)) return;
+          list.splice(i, 1); saveWish(list); renderWish();
+        };
+        ul.appendChild(li);
+      });
+    }
+
+    $('wishForm').onsubmit = e => {
+      e.preventDefault();
+      const name = $('wishInput').value.trim();
+      if (!name) { $('wishInput').focus(); return; }
+      const list = loadWish(); list.push({ name, got: false });
+      saveWish(list); $('wishInput').value = ''; renderWish();
+    };
+
+    renderWish();
   </script>
 
 </body>
